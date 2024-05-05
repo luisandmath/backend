@@ -17,6 +17,13 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "paths": {}
+    "paths": {
+      "@libs/supabase-client": [
+        "libs/supabase-client/src"
+      ],
+      "@libs/supabase-client/*": [
+        "libs/supabase-client/src/*"
+      ]
+    }
   }
 }

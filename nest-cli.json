@@ -27,6 +27,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/bff/tsconfig.app.json"
       }
+    },
+    "supabase-client": {
+      "type": "library",
+      "root": "libs/supabase-client",
+      "entryFile": "index",
+      "sourceRoot": "libs/supabase-client/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/supabase-client/tsconfig.lib.json"
+      }
     }
   }
 }
