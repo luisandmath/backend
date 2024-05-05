@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { ExampleModel } from './example.model';
+import { ExampleModel } from './models/example.model';
 import { HttpService } from '@nestjs/axios';
 
 describe('CruiseLineService', () => {

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ExampleResolver } from './bff.resolver';
+import { BffService } from './bff.service';
 
 @Module({
   imports: [
@@ -10,6 +11,6 @@ import { ExampleResolver } from './bff.resolver';
       autoSchemaFile: true,
     }),
   ],
-  providers: [ExampleResolver],
+  providers: [ExampleResolver, BffService],
 })
 export class BffModule {}
