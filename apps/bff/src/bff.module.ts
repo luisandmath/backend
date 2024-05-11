@@ -6,6 +6,8 @@ import { BffService } from './bff.service';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LoggerModule } from 'nestjs-pino';
+import { SupabaseClientModule } from '@libs/supabase-client';
+import { SupabaseClient } from '@supabase/supabase-js';
 
 @Module({
   imports: [
@@ -13,35 +15,16 @@ import { LoggerModule } from 'nestjs-pino';
       driver: ApolloDriver,
       autoSchemaFile: true,
     }),
-    HttpModule.registerAsync({
-      imports: [
-        ConfigModule.forRoot({
-          isGlobal: true,
-        }),
-        LoggerModule.forRootAsync({
-          inject: [ConfigService],
-          useFactory: (configService: ConfigService) => {
-            const isProduction =
-              configService.get<string>('NODE_ENV') === 'production';
-            return {
-              exclude: [{ method: RequestMethod.GET, path: 'health' }],
-              pinoHttp: {
-                transport: !isProduction
-                  ? {
-                      target: 'pino-pretty',
-                      options: {
-                        messageKey: 'message',
-                      },
-                    }
-                  : undefined,
-                messageKey: 'message',
-                autoLogging: isProduction,
-              },
-            };
-          },
-        }),
-      ],
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
+
+    HttpModule.registerAsync({
+      useFactory: () => ({
+        baseURL: process.env.SUPABASE_URL,
+      }),
+    }),
+    SupabaseClientModule,
   ],
   providers: [ExampleResolver, BffService],
 })
